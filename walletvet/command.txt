@@ -1,16 +1,16 @@
 #subir as imagens docker:
-dokcer-compose up -d
+docker-compose up -d
 
 #Derrubar as imagens docker:
-dokcer-compose down
+docker-compose down
 
 #verificar logs:
-dokcer-compose logs
+docker-compose logs
 
 # Quando estiver modificações no projeto rodar esse coamndo:
-dokcer-compose --build
+docker-compose --build
 
 #Rodar as informações do projeto:
-dokcer-compose exec web python3 manage.py ...# comandos do projeto ex: migrate, shell, makemigrations,etc 
+docker-compose exec web python3 manage.py ...# comandos do projeto ex: migrate, shell, makemigrations,etc 
 
 
