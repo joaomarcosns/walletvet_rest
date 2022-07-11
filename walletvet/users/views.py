@@ -1,6 +1,6 @@
 # App
+from users.create_serializers import UserCreateSerializers
 from users.models import User
-from users.serializers import UserSerializers
 
 # Framework
 from rest_framework import viewsets
@@ -10,4 +10,4 @@ from rest_framework.response import Response
 
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
-    serializer_class = UserSerializers
+    serializer_class = UserCreateSerializers
