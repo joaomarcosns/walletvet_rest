@@ -2,10 +2,12 @@
 from users.models import User
 from users.serializers.create_serializers import UserCreateSerializers
 from users.serializers.get_serializers import UserListSerializers
+from users.serializers.update_serializers import UserUpdateSerializers
 
 # Framework
 from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated
+
 
 
 
@@ -26,7 +28,7 @@ class UserViewSet(viewsets.ModelViewSet):
         if self.action == 'create':
             return UserCreateSerializers
         elif self.action == 'update':
-            pass
+            return UserUpdateSerializers
         elif self.action == 'retrieve':
             pass
         return self.serializer_class
