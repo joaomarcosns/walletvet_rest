@@ -18,8 +18,8 @@ def make_user():
         "uf": "To",
         "email": "rebyqon@mailinator.com",
         "email_confirmation": "rebyqon@mailinator.com",
-        "password": "Teste",
-        "password_confirmation": "Teste",
+        "password": "Teste123",
+        "password_confirmation": "Teste123",
     }
 
 
@@ -30,7 +30,7 @@ class TestUser(APITestCase):
 
     def test_user_creation_with_no_email_confirmation(self):
         """
-        Testing user registration without confirming the email
+        Testing user registry with invalid email
         """
         data = self.data
         data['email_confirmation'] = "any@gmail.com"
@@ -38,13 +38,24 @@ class TestUser(APITestCase):
         self.assertEqual(response.status_code, HTTP_400_BAD_REQUEST)
         self.assertEqual(response.data['email_confirmation'][0].code, "email_confirmation_must_match")
 
-    def test_user_creation_with_no_password_confirmation(self):
+    def test_user_creation_invalid_password_confirmation(self):
         """
-        Testing user registration without confirming the password
+        Testing user registry with invalid password confirmation
         """
         data = self.data
-        data['password_confirmation'] = "any"
+        data['password_confirmation'] = "any123456"
         response = self.client.post(self.base_url, data)
         self.assertEqual(response.status_code, HTTP_400_BAD_REQUEST)
         self.assertEqual(response.data['password_confirmation'][0].code, "password_confirmation_must_match")
 
+    def test_user_creation_size_password(self):
+        """
+        Testing user registry with invalid password length
+        """
+        data = self.data
+        data['password'] = "any"
+        response = self.client.post(self.base_url, data)
+        self.assertEqual(response.status_code, HTTP_400_BAD_REQUEST)
+        self.assertEqual(response.data['password'][0].code, "password_size_min")
+
+    
