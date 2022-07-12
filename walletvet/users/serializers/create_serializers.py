@@ -3,6 +3,8 @@ from users.models import User
 
 # Framework
 from rest_framework import serializers
+from django.utils.timezone import now
+from dateutil.relativedelta import relativedelta
 
 
 class UserCreateSerializers(serializers.ModelSerializer):
@@ -50,6 +52,14 @@ class UserCreateSerializers(serializers.ModelSerializer):
             raise serializers.ValidationError("Password must be longer than 6 characters",
              "password_size_min")
         return value
+
+    def validate_birth_date(self, value):
+        difference = relativedelta(now().date(),value)
+        if difference.years < 18:
+            raise serializers.ValidationError("User must be over 18 years old", "birth_date_invalid")
+        return value
+
+
 
     def create(self, validated_data):
         del validated_data["email_confirmation"]
