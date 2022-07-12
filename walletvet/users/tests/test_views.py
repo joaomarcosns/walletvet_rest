@@ -19,6 +19,7 @@ def make_user():
         "email": "rebyqon@mailinator.com",
         "email_confirmation": "rebyqon@mailinator.com",
         "password": "Teste",
+        "password_confirmation": "Teste",
     }
 
 
@@ -35,5 +36,15 @@ class TestUser(APITestCase):
         data['email_confirmation'] = "any@gmail.com"
         response = self.client.post(self.base_url, data)
         self.assertEqual(response.status_code, HTTP_400_BAD_REQUEST)
-        self.assertEqual(
-            response.data['email_confirmation'][0].code, "email_confirmation_must_match")
+        self.assertEqual(response.data['email_confirmation'][0].code, "email_confirmation_must_match")
+
+    def test_user_creation_with_no_password_confirmation(self):
+        """
+        Testing user registration without confirming the password
+        """
+        data = self.data
+        data['password_confirmation'] = "any"
+        response = self.client.post(self.base_url, data)
+        self.assertEqual(response.status_code, HTTP_400_BAD_REQUEST)
+        self.assertEqual(response.data['password_confirmation'][0].code, "password_confirmation_must_match")
+
