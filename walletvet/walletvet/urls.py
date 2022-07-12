@@ -16,13 +16,14 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import include, path
 from users.views import UserViewSet
+from auth.views import CustomAuthToken
 from rest_framework.routers import DefaultRouter
 
 router = DefaultRouter()
-router.register(r'users', UserViewSet)
+router.register(r'user', UserViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api-auth/', include('rest_framework.urls')),
+    path('api/auth/', CustomAuthToken.as_view()),
     path('api/v1/', include(router.urls)),
 ]
