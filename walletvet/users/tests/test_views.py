@@ -58,4 +58,12 @@ class TestUser(APITestCase):
         self.assertEqual(response.status_code, HTTP_400_BAD_REQUEST)
         self.assertEqual(response.data['password'][0].code, "password_size_min")
 
-    
+    def test_user_creation_birth_date_invalid(self):
+        """
+        Testing user registry with invalid birth date
+        """
+        data = self.data
+        data['birth_date'] = "2023-12-23"
+        response = self.client.post(self.base_url, data)
+        self.assertEqual(response.status_code, HTTP_400_BAD_REQUEST)
+        self.assertEqual(response.data['birth_date'][0].code, "birth_date_invalid")
