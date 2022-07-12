@@ -44,6 +44,13 @@ class UserCreateSerializers(serializers.ModelSerializer):
             raise serializers.ValidationError("Password must match", "password_confirmation_must_match")
         return value
 
+    def validate_password(self, value):
+        data = self.get_initial()
+        if len(data.get('password')) < 6:
+            raise serializers.ValidationError("Password must be longer than 6 characters",
+             "password_size_min")
+        return value
+
     def create(self, validated_data):
         del validated_data["email_confirmation"]
         del validated_data["password_confirmation"]
