@@ -7,7 +7,7 @@ docker-compose down
 #verificar logs:
 docker-compose logs
 
-# Quando estiver modificações no projeto rodar esse coamndo:
+# Quando estiver modificações no projeto rodar esse comando:
 docker-compose --build
 
 #Rodar as informações do projeto:
