@@ -6,13 +6,13 @@ from rest_framework.serializers import (
 )
 
 from django.contrib.auth import authenticate
-
+from django.utils.translation import gettext_lazy as _
 
 class AuthTokenSerializer(Serializer):
     """Serializer for the Authentication."""
-    email = CharField(label="E-mail", write_only=True)
+    email = CharField(label=_("Email"), write_only=True)
     password = CharField(
-        label="Password", style={"input_type": "password"},
+        label=_("Password"), style={"input_type": "password"},
         trim_whitespace=False, write_only=True)
     token = CharField(label="Token", read_only=True)
 
@@ -28,14 +28,14 @@ class AuthTokenSerializer(Serializer):
             )
 
             if not user:
-                msg = "Unable to log in with provided credentials."
-                raise ValidationError(msg, code="authorization")
+                msg = _("Unable to log in with provided credentials.")
+                raise ValidationError(msg, code=_("authorization"))
             if not user.is_active:
-                msg = "Unable to log in with provided credentials."
-                raise ValidationError(msg, code="authorization")
+                msg = _("Unable to log in with provided credentials.")
+                raise ValidationError(msg, code=_("authorization"))
         else:
-            msg = "Must include \"username\" and \"password\"."
-            raise ValidationError(msg, code="authorization")
+            msg = _("Must include \"username\" and \"password\".")
+            raise ValidationError(msg, code=_("authorization"))
 
         data["user"] = user
 

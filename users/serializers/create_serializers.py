@@ -5,7 +5,7 @@ from users.models import User
 from rest_framework import serializers
 from django.utils.timezone import now
 from dateutil.relativedelta import relativedelta
-
+from django.utils.translation import gettext_lazy as _
 
 class UserCreateSerializers(serializers.ModelSerializer):
     email_confirmation = serializers.EmailField(required=True, write_only=True)
@@ -36,27 +36,27 @@ class UserCreateSerializers(serializers.ModelSerializer):
         data = self.get_initial()
         email = data.get('email')
         if value != email:
-            raise serializers.ValidationError("Emails must match", "email_confirmation_must_match")
+            raise serializers.ValidationError(_("Emails must match"), "email_confirmation_must_match")
         return value
 
     def validate_password_confirmation(self, value):
         data = self.get_initial()
         password = data.get('password')
         if value != password:
-            raise serializers.ValidationError("Password must match", "password_confirmation_must_match")
+            raise serializers.ValidationError(_("Password must match"), "password_confirmation_must_match")
         return value
 
     def validate_password(self, value):
         data = self.get_initial()
         if len(data.get('password')) < 6:
-            raise serializers.ValidationError("Password must be longer than 6 characters",
+            raise serializers.ValidationError(_("Password must be longer than 6 characters"),
              "password_size_min")
         return value
 
     def validate_birth_date(self, value):
         difference = relativedelta(now().date(),value)
         if difference.years < 18:
-            raise serializers.ValidationError("User must be over 18 years old", "birth_date_invalid")
+            raise serializers.ValidationError(_("User must be over 18 years old"), "birth_date_invalid")
         return value
 
 

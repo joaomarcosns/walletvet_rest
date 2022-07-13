@@ -3,7 +3,7 @@ from django.contrib.auth.models import (
     AbstractBaseUser, BaseUserManager, PermissionsMixin
 )
 from django.db import models
-
+from django.utils.translation import gettext_lazy as _
 
 class CustomUserManager(BaseUserManager):
     """
@@ -28,27 +28,27 @@ class CustomUserManager(BaseUserManager):
         extra_fields.setdefault("is_active", True)
 
         if extra_fields.get("is_staff") is not True:
-            raise ValueError("Superuser must have is_staff=True.")
+            raise ValueError(_("Superuser must have is_staff=True."))
         if extra_fields.get("is_superuser") is not True:
-            raise ValueError("Superuser must have is_superuser=True.")
+            raise ValueError(_("Superuser must have is_superuser=True."))
         return self.create_user(email, password, **extra_fields)
 
 # OBS: This is the user/owner model
 
 
 class User(AbstractBaseUser, PermissionsMixin):
-    name = models.CharField('Name', max_length=100)
-    phone = models.CharField('Phone', max_length=20)
-    phone2 = models.CharField('Phone 2', max_length=20, blank=True)
-    city = models.CharField('City', max_length=100)
-    district = models.CharField('District', max_length=200)
-    street = models.CharField('street', max_length=250)
-    number = models.CharField('Number', max_length=5)
-    uf = models.CharField('UF', max_length=2)
-    email = models.EmailField('Email', max_length=100, unique=True)
-    is_active = models.BooleanField('active', default=True)
-    birth_date = models.DateField("birth date", auto_now_add=False)
-    is_staff = models.BooleanField('is_staff', default=False)
+    name = models.CharField(_('Name'), max_length=100)
+    phone = models.CharField(_('Phone'), max_length=20)
+    phone2 = models.CharField(_('Phone 2'), max_length=20, blank=True)
+    city = models.CharField(_('City'), max_length=100)
+    district = models.CharField(_('District'), max_length=200)
+    street = models.CharField(_('street'), max_length=250)
+    number = models.CharField(_('Number'), max_length=5)
+    uf = models.CharField(_('UF'), max_length=2)
+    email = models.EmailField(_('Email'), max_length=100, unique=True)
+    is_active = models.BooleanField(_('active'), default=True)
+    birth_date = models.DateField(_('birth date'), auto_now_add=False)
+    is_staff = models.BooleanField(_('is_staff'), default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
