@@ -18,3 +18,6 @@ class TypeAnimal(models.Model):
     class Meta:
         db_table='type_animal'
 
+class Breed(models.Model):
+    breed = models.CharField(_("Breed"), max_length=200)
+    fk_type_animal = models.ForeignKey(_("Type Animal"))
