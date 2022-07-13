@@ -8,13 +8,11 @@ from users.serializers.update_serializers import UserUpdateSerializers
 from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated
 
-
-
-
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserListSerializers
     permission_classes = [IsAuthenticated]
+    http_method_names = ['get','head', 'put', 'delete']
 
     def get_queryset(self):
         queryset = self.queryset
@@ -25,12 +23,15 @@ class UserViewSet(viewsets.ModelViewSet):
         return queryset
     
     def get_serializer_class(self):
-        if self.action == 'create':
-            return UserCreateSerializers
-        elif self.action == 'update':
+        if self.action == 'update':
             return UserUpdateSerializers
         elif self.action == 'retrieve':
             pass
         return self.serializer_class
+
+class UserCreatedSet(viewsets.ModelViewSet):
+    queryset = User.objects.all()
+    serializer_class = UserCreateSerializers
+    http_method_names = ['post']
 
 
