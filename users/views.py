@@ -7,6 +7,7 @@ from users.serializers.update_serializers import UserUpdateSerializers
 # Framework
 from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
 
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
@@ -21,12 +22,17 @@ class UserViewSet(viewsets.ModelViewSet):
         if not user_request.is_superuser:
             queryset = queryset.filter(pk=user_request.pk)
         return queryset
+
+    def destroy(self, request, *args, **kwargs):
+        user = self.get_object()
+        user.is_active = False
+        user.save()
+        return Response(data='delete success')
+
     
     def get_serializer_class(self):
         if self.action == 'update':
             return UserUpdateSerializers
-        elif self.action == 'retrieve':
-            pass
         return self.serializer_class
 
 class UserCreatedSet(viewsets.ModelViewSet):
