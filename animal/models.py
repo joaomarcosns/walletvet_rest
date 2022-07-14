@@ -8,16 +8,25 @@ class Color(models.Model):
     class Meta:
         db_table='color'
 
+    def __str__(self) -> str:
+        return self.color
+
 class TypeAnimal(models.Model):
     type_animal = models.CharField(_("Type Animal"), max_length=100)
     class Meta:
         db_table='type_animal'
+    
+    def __str__(self) -> str:
+        return self.type_animal
 
 class Breed(models.Model):
     breed = models.CharField(_("Breed"), max_length=200)
     fk_type_animal = models.ForeignKey(TypeAnimal, on_delete=models.CASCADE)
     class Meta:
         db_table='breed'
+
+    def __str__(self) -> str:
+        return self.breed
 
 class Animal(models.Model):
     GENDER_CHOICES = (
@@ -40,4 +49,7 @@ class Animal(models.Model):
     fk_type_animal = models.ForeignKey(TypeAnimal, on_delete=models.CASCADE)
     fk_user = models.ForeignKey(User, on_delete=models.CASCADE)
     class Meta:
-            db_table='animal'
+        db_table='animal'
+
+    def __str__(self) -> str:
+        return self.name
