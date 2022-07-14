@@ -67,3 +67,13 @@ class TestUser(APITestCase):
         response = self.client.post(self.base_url, data)
         self.assertEqual(response.status_code, HTTP_400_BAD_REQUEST)
         self.assertEqual(response.data['birth_date'][0].code, "birth_date_invalid")
+
+    def test_user_creation_name_invalid(self):
+        """
+        Testing user registry with invalid name
+        """
+        data = self.data
+        data["name"] = "Teste001"
+        response = self.client.post(self.base_url, data)
+        self.assertEqual(response.status_code, HTTP_400_BAD_REQUEST)
+        self.assertEqual(response.data['name'][0].code, "name_invalid")
