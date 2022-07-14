@@ -16,6 +16,10 @@ class AnimalListSerializers(serializers.ModelSerializer):
         fields= '__all__'
 
 
+class TypeAnimalListSerializers(serializers.ModelSerializer):
+    class Meta:
+        model = TypeAnimal
+        fields= '__all__'
 
 
 class BreedListSerializers(serializers.ModelSerializer):

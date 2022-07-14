@@ -1,11 +1,13 @@
 
 from animal.models import (
     Animal,
-    Breed
+    Breed,
+    TypeAnimal
 )
 from animal.serializers.get_serializer import (
     AnimalListSerializers,
-    BreedListSerializers
+    BreedListSerializers,
+    TypeAnimalListSerializers
 )
 
 from rest_framework import viewsets
@@ -13,6 +15,12 @@ from rest_framework.status import HTTP_404_NOT_FOUND
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
+
+class TypeAnimalViewSet(viewsets.ModelViewSet):
+    queryset = TypeAnimal.objects.all()
+    serializer_class = TypeAnimalListSerializers
+    permission_classes = [IsAuthenticated]
+    http_method_names = ['get']
 
 class AnimalViewSet(viewsets.ModelViewSet):
     queryset = Animal.objects.all()

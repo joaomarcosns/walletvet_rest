@@ -23,7 +23,8 @@ from django.conf.urls.static import static
 from django.conf import settings
 from animal.views import (
     AnimalViewSet,
-    BreedViewSet
+    BreedViewSet,
+    TypeAnimalViewSet
 )
 from auth.views import CustomAuthToken
 from rest_framework.routers import DefaultRouter
@@ -33,6 +34,7 @@ router.register(r'user', UserViewSet)
 router.register(r'register', UserCreatedSet)
 router.register(r'animal', AnimalViewSet)
 router.register(r'breed', BreedViewSet)
+router.register(r'typeanimal', TypeAnimalViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
