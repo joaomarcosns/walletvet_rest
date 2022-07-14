@@ -59,6 +59,10 @@ class UserCreateSerializers(serializers.ModelSerializer):
             raise serializers.ValidationError(_("User must be over 18 years old"), "birth_date_invalid")
         return value
 
+    def validate_name(self, value):
+        if any(chr.isdigit() for chr in value):
+            raise serializers.ValidationError(_("Invalid name entered"), "name_invalid")
+        return value
 
 
     def create(self, validated_data):
