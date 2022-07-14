@@ -19,6 +19,8 @@ from users.views import (
     UserViewSet,
     UserCreatedSet
 )
+from django.conf.urls.static import static
+from django.conf import settings
 from animal.views import AnimalViewSet
 from auth.views import CustomAuthToken
 from rest_framework.routers import DefaultRouter
@@ -32,4 +34,4 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/auth/', CustomAuthToken.as_view()),
     path('api/v1/', include(router.urls)),
-]
+]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
