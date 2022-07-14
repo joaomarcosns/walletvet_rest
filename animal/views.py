@@ -10,6 +10,10 @@ from animal.serializers.get_serializer import (
     TypeAnimalListSerializers
 )
 
+from animal.serializers.created_serializer import (
+    AnimalCreatedSerializer
+)
+
 from rest_framework import viewsets
 from rest_framework.status import HTTP_404_NOT_FOUND
 from rest_framework.permissions import IsAuthenticated
@@ -26,6 +30,11 @@ class AnimalViewSet(viewsets.ModelViewSet):
     queryset = Animal.objects.all()
     serializer_class = AnimalListSerializers
     permission_classes = [IsAuthenticated]
+
+    def get_serializer_class(self):
+        if self.action == 'create' or self.action == 'update':
+            return AnimalCreatedSerializer
+        return self.serializer_class
 
 
 class BreedViewSet(viewsets.ModelViewSet):
