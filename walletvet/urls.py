@@ -19,12 +19,14 @@ from users.views import (
     UserViewSet,
     UserCreatedSet
 )
+from animal.views import AnimalViewSet
 from auth.views import CustomAuthToken
 from rest_framework.routers import DefaultRouter
 
 router = DefaultRouter()
 router.register(r'user', UserViewSet)
 router.register(r'register', UserCreatedSet)
+router.register(r'animal', AnimalViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
