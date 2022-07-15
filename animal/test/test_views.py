@@ -78,4 +78,12 @@ class TestUser(APITestCase):
         self.assertEqual(response.status_code, HTTP_400_BAD_REQUEST)
         self.assertEqual(response.data['name'][0].code, "name_invalid")
 
-    
+    def test_animal_creation_birth_date_invalid(self):
+        """
+        Testing animal registry with invalid birth date
+        """
+        data = self.data
+        data['birth_date'] = "2022-07-15"
+        response = self.client.post(self.base_url, data)
+        self.assertEqual(response.status_code, HTTP_400_BAD_REQUEST)
+        self.assertEqual(response.data['birth_date'][0].code, "birth_date_invalid")
