@@ -20,8 +20,13 @@ class VaccinationCreateSerializers(serializers.ModelSerializer):
 
     def validate_date_vaccination(self, attrs):
         if attrs > now():
-            raise serializers.ValidationError(_("More than current data"), "date_vaccination_invalid")
-        return super().validate(attrs)
+            raise serializers.ValidationError(_("Data de vacinação informada invalida "), "date_vaccination_invalid")
+        return attrs
+
+    def validate_date_return(self, attrs):
+        if attrs < now():
+            raise serializers.ValidationError(_("Data de retorno informada inválida"), "date_return_invalid")
+        return attrs
     
     def create(self, validated_data):
         vaccination = Vaccination.objects.create(**validated_data)
