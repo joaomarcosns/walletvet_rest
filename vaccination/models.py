@@ -22,10 +22,10 @@ class Vaccine(models.Model):
 class Vaccination(models.Model):
     pk_vaccine = models.ForeignKey(Vaccine, on_delete=models.SET_NULL, null=True)
     vaccine_dose = models.IntegerField(_("Vaccine Dose"))
-    batch = models.CharField(_("Batch"))
+    batch = models.CharField(_("Batch"), max_length=150)
     date_vaccination = models.DateTimeField(_("Date Vaccine"))
     date_return = models.DateTimeField(_("Date Return"))
-    responsible = models.CharField(_("Responsible"))
+    responsible = models.CharField(_("Responsible"), max_length=150)
     fk_animal = models.ForeignKey(Animal, on_delete=models.CASCADE)
 
     class Meta:
