@@ -8,6 +8,7 @@ from vaccination.serializers.get_serializer import	(
     VaccinationListSerializers,
     VaccineListSerializers
 )
+from vaccination.serializers.create_serializers import VaccinationCreateSerializers
 # Framework
 from rest_framework import viewsets
 from rest_framework.status import HTTP_404_NOT_FOUND
@@ -18,10 +19,10 @@ class VaccinationViewSet(viewsets.ModelViewSet):
     serializer_class = VaccinationListSerializers
     permission_classes = [IsAuthenticated]
 
-    # def get_serializer_class(self):
-    #     if self.action == 'create' or self.action == 'update':
-    #         return AnimalCreatedSerializer
-    #     return self.serializer_class
+    def get_serializer_class(self):
+        if self.action == 'create' or self.action == 'update':
+            return VaccinationCreateSerializers
+        return self.serializer_class
 
 class VaccineViewSet(viewsets.ModelViewSet):
     queryset = Vaccine.objects.all()
