@@ -104,3 +104,14 @@ class TestVaccination(APITestCase):
         response = self.client.post(self.base_url, data)
         self.assertEqual(response.status_code, HTTP_400_BAD_REQUEST)
         self.assertEqual(response.data['responsible'][0].code, "responsible_invalid")
+
+    def test_vaccination_creation_date_vaccination_invalid(self):
+        """
+        Testing vaccination registry with invalid date_vaccination
+        """
+        data = self.data
+        # Not doing anything. It is commented out.
+        data['date_vaccination'] = "2023-07-15"
+        response = self.client.post(self.base_url, data)
+        self.assertEqual(response.status_code, HTTP_400_BAD_REQUEST)
+        self.assertEqual(response.data['date_vaccination'][0].code, "date_vaccination_invalid")
