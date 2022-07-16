@@ -6,14 +6,14 @@ from .models import (
 # Register your models here.
 
 class VaccineShowAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name', 'pk_type_animal')
-    list_filter = ('name', 'pk_type_animal',)
+    list_display = ('id', 'name', 'fk_type_animal')
+    list_filter = ('name', 'fk_type_animal',)
     search_fields = ('name', )
 
 class VaccinationShowAdmin(admin.ModelAdmin):
-    list_display = ('id', 'pk_vaccine', 'fk_animal')
-    list_display = ('pk_vaccine', 'fk_animal', )
-    search_fields = ('fk_animal', 'pk_vaccine', )
+    list_display = ('id', 'fk_vaccine', 'fk_animal')
+    list_display = ('fk_vaccine', 'fk_animal', )
+    search_fields = ('fk_animal', 'fk_vaccine', )
 
 
 admin.site.register(Vaccination, VaccinationShowAdmin)

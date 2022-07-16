@@ -26,6 +26,10 @@ from animal.views import (
     BreedViewSet,
     TypeAnimalViewSet
 )
+from vaccination.views import (
+    VaccinationViewSet,
+    VaccineViewSet
+)
 from auth.views import CustomAuthToken
 from rest_framework.routers import DefaultRouter
 
@@ -35,6 +39,8 @@ router.register(r'register', UserCreatedSet)
 router.register(r'animal', AnimalViewSet)
 router.register(r'breed', BreedViewSet)
 router.register(r'typeanimal', TypeAnimalViewSet)
+router.register(r'vaccine', VaccineViewSet)
+router.register(r'vaccination', VaccinationViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),

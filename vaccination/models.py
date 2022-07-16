@@ -11,7 +11,7 @@ from django.utils.translation import gettext_lazy as _
 
 class Vaccine(models.Model):
     name = models.CharField(_("Name"), max_length=150)
-    pk_type_animal = models.ForeignKey(TypeAnimal, on_delete=models.CASCADE)
+    fk_type_animal = models.ForeignKey(TypeAnimal, on_delete=models.CASCADE)
 
     class Meta:
         db_table='vaccine'
@@ -20,7 +20,7 @@ class Vaccine(models.Model):
         return self.name
 
 class Vaccination(models.Model):
-    pk_vaccine = models.ForeignKey(Vaccine, on_delete=models.SET_NULL, null=True)
+    fk_vaccine = models.ForeignKey(Vaccine, on_delete=models.CASCADE)
     vaccine_dose = models.IntegerField(_("Vaccine Dose"))
     batch = models.CharField(_("Batch"), max_length=150)
     date_vaccination = models.DateTimeField(_("Date Vaccine"))
