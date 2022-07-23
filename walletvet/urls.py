@@ -15,16 +15,14 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path
-from users.views import (
-    UserViewSet,
-    UserCreatedSet
-)
+from users.views import UserViewSet, UserCreatedSet
 from django.conf.urls.static import static
 from django.conf import settings
 from animal.views import (
     AnimalViewSet,
     BreedViewSet,
-    TypeAnimalViewSet
+    TypeAnimalViewSet,
+    ColorViewSet
 )
 from vaccination.views import (
     VaccinationViewSet,
@@ -34,11 +32,12 @@ from auth.views import CustomAuthToken
 from rest_framework.routers import DefaultRouter
 
 router = DefaultRouter()
-router.register(r'user', UserViewSet)
-router.register(r'register', UserCreatedSet)
+router.register(r'user', UserViewSet, 'users')
+router.register(r'register', UserCreatedSet, 'user-register')
 router.register(r'animal', AnimalViewSet)
 router.register(r'breed', BreedViewSet)
 router.register(r'typeanimal', TypeAnimalViewSet)
+router.register(r'color', ColorViewSet)
 router.register(r'vaccine', VaccineViewSet)
 router.register(r'vaccination', VaccinationViewSet)
 

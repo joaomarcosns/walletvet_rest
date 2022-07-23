@@ -2,11 +2,13 @@
 from animal.models import (
     Animal,
     Breed,
+    Color,
     TypeAnimal
 )
 from animal.serializers.get_serializer import (
     AnimalListSerializers,
     BreedListSerializers,
+    ColorListSerializers,
     TypeAnimalListSerializers
 )
 
@@ -50,3 +52,10 @@ class BreedViewSet(viewsets.ModelViewSet):
         if fk:
             queryset = queryset.filter(fk_type_animal_id=fk)
         return queryset
+
+class ColorViewSet(viewsets.ModelViewSet):
+    queryset = Color.objects.all()
+    serializer_class = ColorListSerializers
+    permission_classes = [IsAuthenticated]
+    http_method_names = ['get']
+    
