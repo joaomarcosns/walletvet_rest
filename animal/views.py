@@ -33,6 +33,12 @@ class AnimalViewSet(viewsets.ModelViewSet):
     serializer_class = AnimalListSerializers
     permission_classes = [IsAuthenticated]
 
+    def get_queryset(self):
+        queryset = self.queryset
+        request = self.request
+        user = request.user
+        return queryset.filter(fk_user_id=user.pk)
+
     def get_serializer_class(self):
         if self.action == 'create' or self.action == 'update':
             return AnimalCreatedSerializer
