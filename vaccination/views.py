@@ -30,5 +30,11 @@ class VaccineViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated]
     http_method_names = ['get']
 
-    
+    def get_queryset(self):
+        queryset = self.queryset
+        params = self.request.query_params
+        fk = params.get('fk', None)
+        if fk:
+            queryset = queryset.filter(fk_type_animal_id=fk)
+        return queryset
 

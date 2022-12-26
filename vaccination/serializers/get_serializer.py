@@ -13,6 +13,7 @@ class VaccinationListSerializers(serializers.ModelSerializer):
     class Meta:
         model = Vaccination
         fields= '__all__'
+        depth = 1
 
 
 class VaccineListSerializers(serializers.ModelSerializer):
